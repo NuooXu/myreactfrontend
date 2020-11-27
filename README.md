@@ -1,4 +1,4 @@
 # myreactfrontend
-It is the front-end of Social Media Application, which include React Hooks, Immer, WebSocket ect.  
+It is the front-end of Social Media Application, which includes React Hooks, Immer, WebSocket etc.  
 
 Use MongoDB Atlas as database.  
