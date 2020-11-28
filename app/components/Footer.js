@@ -1,5 +1,5 @@
 import React from "react"
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom"
 
 function Footer() {
   return (
@@ -20,7 +20,7 @@ function Footer() {
       <p className="m-0">
         Copyright &copy; 2020{" "}
         <a href="/" className="text-muted">
-          ComplexApp
+          NuoXu
         </a>
         . All rights reserved.
       </p>

@@ -3,10 +3,10 @@ import Page from "./Page"
 import Axios from "axios"
 import { userImmerReducer, useImmerReducer } from "use-immer"
 import { CSSTransition } from "react-transition-group"
-import DispatchContext from '../DispatchContext'
+import DispatchContext from "../DispatchContext"
 
 function HomeGuest() {
-const appDispatch = useContext(DispatchContext)
+  const appDispatch = useContext(DispatchContext)
 
   const initialState = {
     username: {
@@ -40,9 +40,13 @@ const appDispatch = useContext(DispatchContext)
           draft.username.hasErrors = true
           draft.username.message = "Username cannot exceed 30 characters."
         }
-        if (draft.username.value && !/^([a-zA-Z0-9]+)$/.test(draft.username.value)) {
+        if (
+          draft.username.value &&
+          !/^([a-zA-Z0-9]+)$/.test(draft.username.value)
+        ) {
           draft.username.hasErrors = true
-          draft.username.message = "Username can only contain letters and numbers"
+          draft.username.message =
+            "Username can only contain letters and numbers"
         }
         return
       case "usernameAfterDelay":
@@ -94,13 +98,19 @@ const appDispatch = useContext(DispatchContext)
         }
         return
       case "passwordAfterDelay":
-        if (draft.password.value.length < 12) {
+        if (draft.password.value.length < 3) {
           draft.password.hasErrors = true
-          draft.password.message = "Password must be at least 12 characters."
+          draft.password.message = "Password must be at least 3 characters."
         }
         return
       case "submitForm":
-        if(!draft.username.hasErrors && draft.username.isUnique && !draft.email.hasErrors && draft.email.isUnique && !draft.password.hasErrors){
+        if (
+          !draft.username.hasErrors &&
+          draft.username.isUnique &&
+          !draft.email.hasErrors &&
+          draft.email.isUnique &&
+          !draft.password.hasErrors
+        ) {
           draft.submitCount++
         }
         return
@@ -111,7 +121,10 @@ const appDispatch = useContext(DispatchContext)
 
   useEffect(() => {
     if (state.username.value) {
-      const delay = setTimeout(() => dispatch({ type: "usernameAfterDelay" }), 800)
+      const delay = setTimeout(
+        () => dispatch({ type: "usernameAfterDelay" }),
+        800
+      )
       return () => clearTimeout(delay)
     }
   }, [state.username.value])
@@ -125,21 +138,31 @@ const appDispatch = useContext(DispatchContext)
 
   useEffect(() => {
     if (state.password.value) {
-      const delay = setTimeout(() => dispatch({ type: "passwordAfterDelay" }), 800)
+      const delay = setTimeout(
+        () => dispatch({ type: "passwordAfterDelay" }),
+        800
+      )
       return () => clearTimeout(delay)
     }
   }, [state.password.value])
 
   function handleSubmit(e) {
     e.preventDefault()
-    dispatch({type: "usernameImmediately", value: state.username.value})
-    dispatch({type: "usernameAfterDelay", value: state.username.value, noRequest: true})
-    dispatch({type: "emailImmediately", value: state.email.value})
-    dispatch({type: "emailAfterDelay", value: state.email.value, noRequest: true})
-    dispatch({type: "passwordImmediately", value: state.password.value})
-    dispatch({type: "passwordAfterDelay", value: state.password.value})
-    dispatch({type: "submitForm"})
-
+    dispatch({ type: "usernameImmediately", value: state.username.value })
+    dispatch({
+      type: "usernameAfterDelay",
+      value: state.username.value,
+      noRequest: true
+    })
+    dispatch({ type: "emailImmediately", value: state.email.value })
+    dispatch({
+      type: "emailAfterDelay",
+      value: state.email.value,
+      noRequest: true
+    })
+    dispatch({ type: "passwordImmediately", value: state.password.value })
+    dispatch({ type: "passwordAfterDelay", value: state.password.value })
+    dispatch({ type: "submitForm" })
   }
 
   useEffect(() => {
@@ -148,7 +171,11 @@ const appDispatch = useContext(DispatchContext)
       const ourRequest = Axios.CancelToken.source()
       async function fetchResults() {
         try {
-          const response = await Axios.post("/doesUsernameExist", { username: state.username.value }, { cancelToken: ourRequest.token })
+          const response = await Axios.post(
+            "/doesUsernameExist",
+            { username: state.username.value },
+            { cancelToken: ourRequest.token }
+          )
           dispatch({ type: "usernameUniqueResults", value: response.data })
         } catch (e) {
           console.log("There was a problem or the request was cancelled.")
@@ -165,7 +192,11 @@ const appDispatch = useContext(DispatchContext)
       const ourRequest = Axios.CancelToken.source()
       async function fetchResults() {
         try {
-          const response = await Axios.post("/doesEmailExist", { email: state.email.value }, { cancelToken: ourRequest.token })
+          const response = await Axios.post(
+            "/doesEmailExist",
+            { email: state.email.value },
+            { cancelToken: ourRequest.token }
+          )
           dispatch({ type: "emailUniqueResults", value: response.data })
         } catch (e) {
           console.log("There was a problem or the request was cancelled.")
@@ -182,9 +213,20 @@ const appDispatch = useContext(DispatchContext)
       const ourRequest = Axios.CancelToken.source()
       async function fetchResults() {
         try {
-          const response = await Axios.post("/register", { username: state.username.value, email: state.email.value, password: state.password.value }, { cancelToken: ourRequest.token })
-          appDispatch({type: "login", data: response.data})
-          appDispatch({type: "flashMessage", value: "Congrats! Welcome to your new account."})
+          const response = await Axios.post(
+            "/register",
+            {
+              username: state.username.value,
+              email: state.email.value,
+              password: state.password.value
+            },
+            { cancelToken: ourRequest.token }
+          )
+          appDispatch({ type: "login", data: response.data })
+          appDispatch({
+            type: "flashMessage",
+            value: "Congrats! Welcome to your new account."
+          })
         } catch (e) {
           console.log("There was a problem or the request was cancelled.")
         }
@@ -198,8 +240,13 @@ const appDispatch = useContext(DispatchContext)
     <Page title="Welcom" wide={true}>
       <div className="row align-items-center">
         <div className="col-lg-7 py-3 py-md-5">
-          <h1 className="display-3">Remember Writing?</h1>
-          <p className="lead text-muted">Are you sick of short tweets and impersonal &ldquo;shared&rdquo; posts that are reminiscent of the late 90&rsquo;s email forwards? We believe getting back to actually writing is the key to enjoying the internet again.</p>
+          <h2>About this application</h2>
+          <p className="lead text-muted">
+            For using this application, sign up first. Then you can follow
+            others and see their posts on your main page. Also you can post your
+            own story and live chat with other users. Let’s start!
+          </p>
+          --- From Nuo Xu
         </div>
         <div className="col-lg-5 pl-lg-5 pb-3 py-lg-5">
           <form onSubmit={handleSubmit}>
@@ -207,31 +254,90 @@ const appDispatch = useContext(DispatchContext)
               <label htmlFor="username-register" className="text-muted mb-1">
                 <small>Username</small>
               </label>
-              <input onChange={e => dispatch({ type: "usernameImmediately", value: e.target.value })} id="username-register" name="username" className="form-control" type="text" placeholder="Pick a username" autoComplete="off" />
-              <CSSTransition in={state.username.hasErrors} timeout={330} classNames="liveValidateMessage" unmountOnExit>
-                <div className="alert alert-danger small liveValidateMessage">{state.username.message}</div>
+              <input
+                onChange={e =>
+                  dispatch({
+                    type: "usernameImmediately",
+                    value: e.target.value
+                  })
+                }
+                id="username-register"
+                name="username"
+                className="form-control"
+                type="text"
+                placeholder="Pick a username"
+                autoComplete="off"
+              />
+              <CSSTransition
+                in={state.username.hasErrors}
+                timeout={330}
+                classNames="liveValidateMessage"
+                unmountOnExit
+              >
+                <div className="alert alert-danger small liveValidateMessage">
+                  {state.username.message}
+                </div>
               </CSSTransition>
             </div>
             <div className="form-group">
               <label htmlFor="email-register" className="text-muted mb-1">
                 <small>Email</small>
               </label>
-              <input onChange={e => dispatch({ type: "emailImmediately", value: e.target.value })} id="email-register" name="email" className="form-control" type="text" placeholder="you@example.com" autoComplete="off" />
-              <CSSTransition in={state.email.hasErrors} timeout={330} classNames="liveValidateMessage" unmountOnExit>
-                <div className="alert alert-danger small liveValidateMessage">{state.email.message}</div>
+              <input
+                onChange={e =>
+                  dispatch({ type: "emailImmediately", value: e.target.value })
+                }
+                id="email-register"
+                name="email"
+                className="form-control"
+                type="text"
+                placeholder="you@example.com"
+                autoComplete="off"
+              />
+              <CSSTransition
+                in={state.email.hasErrors}
+                timeout={330}
+                classNames="liveValidateMessage"
+                unmountOnExit
+              >
+                <div className="alert alert-danger small liveValidateMessage">
+                  {state.email.message}
+                </div>
               </CSSTransition>
             </div>
             <div className="form-group">
               <label htmlFor="password-register" className="text-muted mb-1">
                 <small>Password</small>
               </label>
-              <input onChange={e => dispatch({ type: "passwordImmediately", value: e.target.value })} id="password-register" name="password" className="form-control" type="password" placeholder="Create a password" />
-              <CSSTransition in={state.password.hasErrors} timeout={330} classNames="liveValidateMessage" unmountOnExit>
-                <div className="alert alert-danger small liveValidateMessage">{state.password.message}</div>
+              <input
+                onChange={e =>
+                  dispatch({
+                    type: "passwordImmediately",
+                    value: e.target.value
+                  })
+                }
+                id="password-register"
+                name="password"
+                className="form-control"
+                type="password"
+                placeholder="Create a password"
+              />
+              <CSSTransition
+                in={state.password.hasErrors}
+                timeout={330}
+                classNames="liveValidateMessage"
+                unmountOnExit
+              >
+                <div className="alert alert-danger small liveValidateMessage">
+                  {state.password.message}
+                </div>
               </CSSTransition>
             </div>
-            <button type="submit" className="py-3 mt-4 btn btn-lg btn-success btn-block">
-              Sign up for ComplexApp
+            <button
+              type="submit"
+              className="py-3 mt-4 btn btn-lg btn-success btn-block"
+            >
+              Sign up for App
             </button>
           </form>
         </div>

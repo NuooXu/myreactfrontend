@@ -5,12 +5,18 @@ function Terms() {
   return (
     <Page title="Terms and conditions">
       <h2>Our Terms &amp; Conditions</h2>
-      <p className="lead text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dolorum labore quisquam vel id dicta fuga! Ducimus, quo. Dolore commodi aliquid error veritatis consequuntur, excepturi cumque fuga eum incidunt doloremque?</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At qui enim rem totam voluptatum. Aut saepe temporibus, facilis ex a iste expedita minima dolorum dicta doloribus libero aliquid, quae maxime? Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat suscipit beatae eum, est soluta ducimus ratione et impedit sapiente, nihil, atque dignissimos adipisci? Totam atque officia quis voluptates sed veniam?</p>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita voluptates quisquam possimus tenetur, dicta enim rerum quis, quaerat id nobis provident quo dolorum sapiente temporibus facere non repellendus consequatur cupiditate!</p>
-      <h3>Details</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae laboriosam distinctio atque sint earum? Temporibus, voluptas aspernatur aliquam nisi sed harum laborum, nemo odio animi officia quisquam. Veniam, natus reprehenderit.</p>
-      </Page>
+      <p className="lead text-muted">
+        Being kind (helpful, indulgent, considerate, or humane) to others boosts
+        your serotonin, (the neurotransmitter responsible for feelings of
+        satisfaction and well-being). Kindness leads to many good things like
+        better relationships, improved self-esteem, compassion, happiness,
+        future success, and good mental and physical health. And don’t we all
+        want that for our children, our families, our community, and the world?
+      </p>
+      <p className="lead text-muted">
+        Kindness provides many benefits to a human being.
+      </p>
+    </Page>
   )
 }
 

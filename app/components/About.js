@@ -1,16 +1,23 @@
-import React, {useEffect} from "react"
+import React, { useEffect } from "react"
 import Container from "./Container"
 import Page from "./Page"
 
 function About() {
-
-  return(
+  return (
     <Page title="About Us">
       <h2>About Us</h2>
-      <p className="lead text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dolorum labore quisquam vel id dicta fuga! Ducimus, quo. Dolore commodi aliquid error veritatis consequuntur, excepturi cumque fuga eum incidunt doloremque?</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. At qui enim rem totam voluptatum. Aut saepe temporibus, facilis ex a iste expedita minima dolorum dicta doloribus libero aliquid, quae maxime? Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat suscipit beatae eum, est soluta ducimus ratione et impedit sapiente, nihil, atque dignissimos adipisci? Totam atque officia quis voluptates sed veniam?</p>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita voluptates quisquam possimus tenetur, dicta enim rerum quis, quaerat id nobis provident quo dolorum sapiente temporibus facere non repellendus consequatur cupiditate!</p>
-      </Page>
+      <p className="lead text-muted">
+        Hi there,Hi there, my name is Nuo Xu, currently, I am a graduate student at Northeastern University major in Software Engineering.</p>
+        <p className="lead text-muted">
+        I developedthis Social Media Application not for business use, just because I am very interested in React. And I am really enjoying this whole
+        development process. After finish this project, I have a better understanding of React and Express.</p>
+        <p className="lead text-muted">
+        I am a problem solver and always have a curiosity for new technologies. I believe technology can change our lifestyle greatly. 
+        And I like making new friends, talking with different people makes me know the world better. So if you share the same
+        interests, don’t hesitate to reach out to me!
+      </p>
+
+    </Page>
   )
 }
 
