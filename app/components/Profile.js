@@ -26,7 +26,9 @@ function Profile() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await Axios.post(`/profile/${username}`, { token: appState.user.token })
+        const response = await Axios.post(`/profile/${username}`, {
+          token: appState.user.token
+        })
         setState(draft => {
           draft.profileData = response.data
         })
@@ -35,7 +37,6 @@ function Profile() {
       }
     }
     fetchData()
-
   }, [username])
 
   useEffect(() => {
@@ -46,10 +47,13 @@ function Profile() {
 
       async function fetchData() {
         try {
-          const response = await Axios.post(`/addFollow/${state.profileData.profileUsername}`, { token: appState.user.token })
+          const response = await Axios.post(
+            `/addFollow/${state.profileData.profileUsername}`,
+            { token: appState.user.token }
+          )
           setState(draft => {
             draft.profileData.isFollowing = true
-            draft.profileData, counts.followerCount++
+            draft.profileData.counts.followerCount++
             draft.followActionLoading = false
           })
         } catch (e) {
@@ -68,10 +72,13 @@ function Profile() {
 
       async function fetchData() {
         try {
-          const response = await Axios.post(`/removeFollow/${state.profileData.profileUsername}`, { token: appState.user.token })
+          const response = await Axios.post(
+            `/removeFollow/${state.profileData.profileUsername}`,
+            { token: appState.user.token }
+          )
           setState(draft => {
             draft.profileData.isFollowing = false
-            draft.profileData, counts.followerCount--
+            draft.profileData.counts.followerCount--
             draft.followActionLoading = false
           })
         } catch (e) {
@@ -97,27 +104,52 @@ function Profile() {
   return (
     <Page title="Profile Screen">
       <h2>
-        <img className="avatar-small" src={state.profileData.profileAvatar} /> {state.profileData.profileUsername}
-        {appState.loggedIn && !state.profileData.isFollowing && appState.user.username != state.profileData.profileUsername && state.profileData.profileUsername != "name" && (
-          <button onClick={startFollowing} disabled={state.followActionLoading} className="btn btn-primary btn-sm ml-2">
-            Follow <i className="fas fa-user-plus"></i>
-          </button>
-        )}
-        {appState.loggedIn && state.profileData.isFollowing && appState.user.username != state.profileData.profileUsername && state.profileData.profileUsername != "name" && (
-          <button onClick={stopFollowing} disabled={state.followActionLoading} className="btn btn-danger btn-sm ml-2">
-            Stop Following <i className="fas fa-user-times"></i>
-          </button>
-        )}
+        <img className="avatar-small" src={state.profileData.profileAvatar} />{" "}
+        {state.profileData.profileUsername}
+        {appState.loggedIn &&
+          !state.profileData.isFollowing &&
+          appState.user.username != state.profileData.profileUsername &&
+          state.profileData.profileUsername != "name" && (
+            <button
+              onClick={startFollowing}
+              disabled={state.followActionLoading}
+              className="btn btn-primary btn-sm ml-2"
+            >
+              Follow <i className="fas fa-user-plus"></i>
+            </button>
+          )}
+        {appState.loggedIn &&
+          state.profileData.isFollowing &&
+          appState.user.username != state.profileData.profileUsername &&
+          state.profileData.profileUsername != "name" && (
+            <button
+              onClick={stopFollowing}
+              disabled={state.followActionLoading}
+              className="btn btn-danger btn-sm ml-2"
+            >
+              Stop Following <i className="fas fa-user-times"></i>
+            </button>
+          )}
       </h2>
 
       <div className="profile-nav nav nav-tabs pt-2 mb-4">
-        <NavLink exact to={`/profile/${state.profileData.profileUsername}`} className="nav-item nav-link">
+        <NavLink
+          exact
+          to={`/profile/${state.profileData.profileUsername}`}
+          className="nav-item nav-link"
+        >
           Posts: {state.profileData.counts.postCount}
         </NavLink>
-        <NavLink to={`/profile/${state.profileData.profileUsername}/followers`} className="nav-item nav-link">
+        <NavLink
+          to={`/profile/${state.profileData.profileUsername}/followers`}
+          className="nav-item nav-link"
+        >
           Followers: {state.profileData.counts.followerCount}
         </NavLink>
-        <NavLink to={`/profile/${state.profileData.profileUsername}/following`} className="nav-item nav-link">
+        <NavLink
+          to={`/profile/${state.profileData.profileUsername}/following`}
+          className="nav-item nav-link"
+        >
           Following: {state.profileData.counts.followingCount}
         </NavLink>
       </div>
